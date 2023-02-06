@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原料仓</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <style>
+        tr th {
+            font-size: 30px;
+        }
+
+        th {
+            border-right: 2px solid black;
+            height: 30px;
+            text-align: center;
+        }
+
+        th {
+            border-top: 2px solid black;
+        }
+
+        th:last-child {
+            border-right-color: transparent;
+        }
+
+
+    </style>
+</head>
+<body>
+<div style="display: flex;flex-direction: row;justify-content: space-evenly;">
+    <table style="width: 800px;height: 800px;border-collapse: separate;border-spacing: 0;border-radius: 10px;border: solid 5px black;">
+        <caption style="font-weight: bolder;font-size: 50px;">成品仓</caption>
+        <tr align="center">
+            <th class="st_1">1</th>
+            <th class="st_2">2</th>
+            <th class="st_3">3</th>
+        </tr>
+        <tr align="center">
+            <th class="st_4">4</th>
+            <th class="st_5">5</th>
+            <th class="st_6">6</th>
+        </tr>
+        <tr align="center">
+            <th class="st_7">7</th>
+            <th class="st_8">8</th>
+            <th class="st_9">9</th>
+        </tr>
+        <tr align="center">
+            <th class="st_10">10</th>
+            <th class="st_11">11</th>
+            <th class="st_12">12</th>
+        </tr>
+    </table>
+</div>
+</body>
+
+<script>
+
+    function amr_status() {
+        $.ajax({
+            url: 'http://192.168.1.2:8080/started_house',
+            type: 'GET',
+            success: function (data) {
+                var list_data = data.split(',')
+                console.log(list_data)
+                for(var i = 0;i<12;i++){
+
+                    var th_class = '.st_'+(i+1)
+                    console.log(th_class)
+                    if(list_data[i] == '0'){
+                        $(th_class).css('background-color','red')
+                    }else if(list_data[i] == '1'){
+                        $(th_class).css('background-color','greenyellow')
+                    }
+
+
+                }
+
+
+
+            }
+        });
+    }
+    setInterval(amr_status, 5000)
+
+</script>
+
+</html>
